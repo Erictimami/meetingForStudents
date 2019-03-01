@@ -34,6 +34,7 @@ module.exports = function(app){
     })
     app.post('/route/sessions/:id', function(request, response){
         console.log("Here in routes.js processing creation session: "+request.body);
+        console.log("Here in routes.js processing creation session checking id: "+response.body);
         require_1.createSession(request, response); 
     })
 
@@ -45,7 +46,7 @@ module.exports = function(app){
         require_1.updateSession(request, response)
     })
 
-    app.delete('/route/removeSession/:id', function(request, response){
+    app.delete('/route/removeSession/:id/:session_id', function(request, response){
         require_1.removeSession(request, response);
     })
 
@@ -58,6 +59,9 @@ module.exports = function(app){
     app.put('/route/acceptToSession', function(request, response){
         require_1.acceptToSession(request, response);
     })
+    app.put('/route/acceptRequest', function(request, response){
+        require_1.acceptRequest(request, response);
+    })
     app.get('/route/messages/:id', function(request, response){
         require_1.findMessageForSession(request, response);
     })
@@ -67,5 +71,8 @@ module.exports = function(app){
     })
     app.get('/route/users_in_sessions', function(request, response){
         require_1.findUsers_in_Sessions(request, response);
+    })
+    app.get('/route/requests/:user_id', function(request, response){
+        require_1.findRequests(request, response);
     })
 }

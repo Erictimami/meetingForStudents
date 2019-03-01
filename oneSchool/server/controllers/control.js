@@ -125,6 +125,21 @@ module.exports = {
             }
         })
     },
+    findRequests: function(request, response){
+        console.log('request.params.id: '+request.params.user_id)
+        connection.query("SELECT * FROM Users JOIN Users_in_Sessions ON Users_in_Sessions.Users_id = Users.id JOIN Sessions ON Users_in_Sessions.Sessions_id = Sessions.id WHERE Sessions.creator_id = ?", request.params.user_id, function(error, rows, fields){
+            if(error){
+                console.log('Error in the query: '+error);
+                response.json({message: 'Error', Error: error});
+            } else{
+                console.log('Successful query');
+                //parse with your rows/fields
+                // response.send('Eric is happy!!!');
+                // response.send(rows[0]);
+                response.json({message: 'Success', data: rows});
+            }
+        })
+    },
     findOneSession: function(request, response){
         connection.query("SELECT * FROM Sessions WHERE id = ?;", request.params.id, function(error, rows, fields){
             if(error){
@@ -275,11 +290,18 @@ module.exports = {
                 console.log('Error in the query: '+error);
                 response.json({message: 'Invalid Input(s)', Error: error});
             } else{
-                console.log('Successful query creation of session');
-                //parse with your rows/fields
-                // response.send('Eric is happy!!!');
-                // response.send(rows[0]);
-                response.json({message: 'Success', data: rows});
+                console.log('Success check id Session in control.js: '+ rows.insertId);
+                let post = {Users_id: request.params.id, Sessions_id: rows.insertId, user_status: true};
+                console.log(post);
+                connection.query("INSERT INTO Users_in_Sessions SET ?;", post, function(error, rows, fields){
+                    if(error){
+                        console.log('Error in the query: '+error);
+                        response.json({message: "Request to session: Error"})
+                    } else{
+                        console.log('Successful query');
+                        response.json({message: "Request to session: Success"})
+                    }
+                })
             }
         })
     },
@@ -383,16 +405,46 @@ module.exports = {
             }
         })
     },
-
-    removeSession: function(request, response){
-        console.log('request.params.id in control.js', request.params.id)
-        connection.query("DELETE FROM Sessions WHERE id = ?;", request.params.id, function(error, rows, fields){
+    acceptRequest: function(request, response){
+        console.log('id user in control.js', request.body.User_id)
+        console.log('id session in control.js', request.body.Session_id)
+        // let post = {Users_id: Number(request.body.User_id), Sessions_id: request.body.Session_id, user_status: 0};
+        // console.log(post);
+        connection.query("UPDATE Users_in_Sessions SET ? WHERE Users_id = ? AND Sessions_id = ?;", [{user_status: true}, Number(request.body.User_id), request.body.Session_id], function(error, rows, fields){
             if(error){
-                console.log('Error in the query');
-                response.json({message: "Delete session Error"})
+                console.log('Error in the query: '+error);
+                response.json({message: "Accept to session: Error"})
             } else{
                 console.log('Successful query');
-                response.json({message: "Delete session Success"})
+                response.json({message: "Accept to session: Success"})
+            }
+        })
+    },
+
+    removeSession: function(request, response){
+        console.log('request.params.id user in control.js', request.params.id)
+        console.log('request.params.id session in control.js', request.params.session_id)
+        connection.query("DELETE FROM Messages WHERE Users_in_Sessions_Users_id = ? AND Users_in_Sessions_Sessions_id = ? ;", [request.params.id, request.params.session_id], function(error, rows, fields){
+            if(error){
+                console.log('Error in the query during deleting messages: '+error);
+                response.json({message: "leaving session Error"})
+            } else{
+                connection.query("DELETE FROM Users_in_Sessions WHERE users_id = ? AND Sessions_id = ? ;", [request.params.id, request.params.session_id], function(error, rows, fields){
+                    if(error){
+                        console.log('Error in the query during leaving session: '+error);
+                        response.json({message: "leaving session Error"})
+                    } else{
+                        connection.query("DELETE FROM Sessions WHERE id = ?;", request.params.id, function(error, rows, fields){
+                            if(error){
+                                console.log('Error in the query during deleting Session: '+error);
+                                response.json({message: "Delete session Error"})
+                            } else{
+                                console.log('Successful query');
+                                response.json({message: "Delete session Success"})
+                            }
+                        })
+                    }
+                })
             }
         })
     },
