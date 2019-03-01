@@ -1,0 +1,42 @@
+<div class='research'>
+    <form class="form-horizontal" role="form" >
+        <h4>Research session</h4>
+        <div class="form-group">
+            <label for="firstName" class="col-sm-3 control-label">Location</label>
+            <div class="col-sm-9">
+                <input type="text" id="firstName" placeholder="location" name="newResearch.location" [(ngModel)]='newResearch.location' class="form-control" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+                <label for="lastName" class="col-sm-3 control-label">Subjects of study</label>
+                <div class="col-sm-9">
+                    <input type="text" id="lastName" placeholder="Sujects of study" name="newResearch.sujectsStudy" [(ngModel)]='newResearch.sujectsStudy' class="form-control" autofocus>
+                </div>
+            </div>
+        <div class="form-group">
+            <label for="lastName" class="col-sm-3 control-label">School name</label>
+            <div class="col-sm-9">
+                <input type="text" id="lastName" name="newResearch.school" [(ngModel)]='newResearch.school' placeholder="School name" class="form-control" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+                <label for="lastName" class="col-sm-3 control-label">Grade</label>
+                <div class="col-sm-9">
+                    <input type="text" id="lastName" name="newResearch.grade" [(ngModel)]='newResearch.grade' placeholder="Grade" class="form-control" autofocus>
+                </div>
+            </div>
+        <div class="form-group">
+            <label for="birthDate" class="col-sm-3 control-label">Date</label>
+            <div class="col-sm-9">
+                <input type="date" id="birthDate" name="newResearch.dateStudy" [(ngModel)]='newResearch.dateStudy' class="form-control">
+            </div>
+        </div>
+         <div class="form-group">
+                <label for="weight" class="col-sm-3 control-label">Number of persons</label>
+            <div class="col-sm-9">
+                <input type="number" id="weight" name="newResearch.numPersons" [(ngModel)]='newResearch.numPersons' placeholder="Number of persons" class="form-control">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-info btn-md" [routerLink]="['/home']">Research</button>
+    </form> <!-- /form -->
+</div>

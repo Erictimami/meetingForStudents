@@ -1,0 +1,95 @@
+
+<div class="container">
+            <form class="form-horizontal" role="form" (submit)='onSubmit()'>
+                <h2>Registration</h2>
+                <div *ngIf="messageErrors"> 
+                    <p class='flash' *ngIf="messageErrors"> 
+                        {{messageErrors}}
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-3 control-label">First Name*</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="first_name" placeholder="First Name" name="newUser.first_name" [(ngModel)]='newUser.first_name' class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-sm-3 control-label">Last Name*</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="last_name" placeholder="Last Name" name="newUser.last_name" [(ngModel)]='newUser.last_name' class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label for="lastName" class="col-sm-3 control-label">Username*</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="username" placeholder="Username" name="newUser.username" [(ngModel)]='newUser.username' class="form-control">
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Email* </label>
+                    <div class="col-sm-9">
+                        <input type="email" id="email" placeholder="Email" name="newUser.email" [(ngModel)]='newUser.email' class="form-control" name= "email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Password*</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="password" placeholder="Password" name="newUser.password" [(ngModel)]='newUser.password' class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="password" placeholder="Password" name="newUser.confirmPassword" [(ngModel)]='newUser.confirmPassword' class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthDate" class="col-sm-3 control-label">Date of Birth*</label>
+                    <div class="col-sm-9">
+                        <input type="date" id="date_birth" name="newUser.date_birth" [(ngModel)]='newUser.date_birth' class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
+                    <div class="col-sm-9">
+                        <input type="phoneNumber" id="phone" placeholder="Phone number" name="newUser.phone" [(ngModel)]='newUser.phone' class="form-control">
+                        <span class="help-block">Your phone number won't be disclosed anywhere </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label for="Height" class="col-sm-3 control-label">School*</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="height" placeholder="Your school" name="newUser.school" [(ngModel)]='newUser.school' class="form-control">
+                    </div>
+                </div>
+                 <div class="form-group">
+                        <label for="weight" class="col-sm-3 control-label">Grade</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="weight" placeholder="Your grade" name="newUser.grade" [(ngModel)]='newUser.grade' class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Gender</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input type="radio" id="femaleRadio" value="0" name="newUser.gender" [(ngModel)]='newUser.gender'>Female
+                                </label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                                    <input type="radio" id="maleRadio" value="1" name="newUser.gender" [(ngModel)]='newUser.gender'>Male
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <span class="help-block">*Required fields</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info btn-block" >Register</button>
+            </form> <!-- /form -->
+        </div> <!-- ./container -->

@@ -1,0 +1,104 @@
+<div id="flipkart-navbar" class="row">
+  <h1 >OneSchool</h1>
+  <div class="col-sm-3">
+      <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ OneSchool</span></h2>
+      <h2 style="margin:0px;"><span class="largenav">Welcome {{sessionVariable.username}}</span></h2>
+  </div>
+  <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
+    <input type="text" class="flipkart-navbar-input col-xs-9" placeholder="Search sessions by school, location, or grade" name="Research">
+    <button class="flipkart-navbar-button col-xs-1">
+        <svg width="15px" height="15px">
+            <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
+        </svg>
+    </button> 
+  </div>
+  <div class="col-1">
+      <input type="submit" class="btn btn-info btn-md" id="logout" [routerLink]="['/login']" value="Logout" >            
+</div>
+</div>
+<div class='vertical'>
+  <div class="menu_vert">
+      <div class="sidebar-nav">
+          <div class="well" style="width:100%; padding: 8px 0;">
+          <ul class="nav nav-list"> 
+            <li class="nav-header">Main</li>   
+            <li><a [routerLink]="['/home']"><i class="icon-edit">Home Page</i> </a></li>     
+            <li class="active"><a [routerLink]="['/session']"><i class="icon-home">Create a study session</i> </a></li>
+            <li><a type="button" (click)='showResearch()'><i class="icon-user"> Research</i></a></li>
+            <li><a [routerLink]="['/requests']"><i class="icon-edit">Manage Requests</i></a></li>
+            <li><a [routerLink]="['/settings']"><i class="icon-picture">Settings</i> </a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+<app-research *ngIf = "selectedResearch == true"></app-research> <!-- use the selector of the task component to nest it within the root component -->
+</div>
+<div class='content'>
+    <div class="vert" *ngFor='let session of mySessions'>
+        <table class="table" >
+            <tr> <h3>Session of {{sessionVariable.username}} </h3></tr>
+            <tr>
+                <th scope="col">Status</th>
+                <td>Open: 1 person left</td>
+            </tr>
+            <tr>
+                <th scope="col">location:</th>
+                <td>{{session.city}}</td>
+            </tr>
+            <tr>
+                <th scope="col">Grade</th>
+                <td>{{session.level}}</td>
+            </tr>
+            <tr>
+                <th scope="col">sujects of study</th>
+                <td>{{session.sujects_study}}</td>
+            </tr>
+            <tr>
+                <th scope="col">Date and Time</th>
+                <td>{{session.date_study}} at {{session.time_starting}}</td>
+            </tr>
+        </table>
+        <div class="form-group" >
+            <button class="btn btn-info btn-md" [routerLink]="['/chatroom/'+session.id]" id="b_submit">Go to Chatroom</button>
+            <button  class="btn btn-info btn-md" [routerLink]="['/updateSession/'+session.id]" id="b_submit">UPDATE SESSION</button>
+            <button  (click)='deleteSessionFromService(session.id)' class="btn btn-info btn-md" id="b_cancel">DELETE SESSION</button>
+        </div>
+    </div>
+
+    <div class="vert" *ngFor='let ses of sessions'>
+            <!-- <div class="vert" *ngFor='let us_ses of users_in_sessions'> -->
+            
+            <table class="table" *ngIf = "ses.user_status == true && ses.creator_id != sessionVariable.user_id">
+                <tr> <h3>Session of {{ses.username}}</h3></tr>
+                <tr>
+                    <th scope="col">Status</th>
+                    <td>Open: 1 person left</td>
+                </tr>
+                <tr>
+                    <th scope="col">location:</th>
+                    <td>{{ses.city}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Grade</th>
+                    <td>{{ses.level}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">sujects of study</th>
+                    <td>{{ses.sujects_study}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Date and Time</th>
+                    <td>{{ses.date_study}} at {{ses.time_starting}}</td>
+                </tr>
+                <!-- <tr>
+                    <th scope="col">School of the session's owner</th>
+                    <td>{{session.school}}</td>
+                </tr> -->
+            </table>
+            <div class="form-group" *ngIf = "ses.user_status == true && ses.creator_id != sessionVariable.user_id">
+                <button class="btn btn-info btn-md" [routerLink]="['/chatroom/'+ses.id]" id="b_submit">Go to Chatroom</button>
+                <button class="btn btn-info btn-md" (click)='leaveSessionFromService(ses.id)' id="b_submit">Leave Session</button>
+            </div>
+        </div>
+    
+</div>

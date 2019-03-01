@@ -1,0 +1,107 @@
+<div id="flipkart-navbar" class="row">
+    <h1 >OneSchool</h1>
+    <div class="col-sm-3">
+        <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ OneSchool</span></h2>
+        <h2 style="margin:0px;"><span class="largenav">Welcome {{sessionVariable.username}}</span></h2>
+    </div>
+    <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
+      <input type="text" class="flipkart-navbar-input col-xs-9" placeholder="Search sessions by school, location, or grade" name="Research">
+      <button class="flipkart-navbar-button col-xs-1">
+          <svg width="15px" height="15px">
+              <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
+          </svg>
+      </button> 
+    </div>
+    <div class="col-1">
+        <input type="submit" class="btn btn-info btn-md" id="logout" [routerLink]="['/login']" value="Logout" >            
+  </div>
+</div>
+
+<div class = "session">
+    <form class="form-horizontal" role="form" (submit)='onSubmit()'>
+        <h2>Create your Study's Session</h2>
+                <!-- Text input-->
+        <div *ngIf="messageErrors"> 
+            <p class='flash' *ngIf="messageErrors"> 
+                {{messageErrors}}
+            </p>
+        </div>
+        <h4>Where do you want?   Provide a location</h4>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Line 1</label>
+            <div class="col-sm-10">
+              <input type="text" placeholder="Address Line 1" class="form-control" name="newSession.address_1" [(ngModel)]='newSession.address_1'>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Line 2</label>
+            <div class="col-sm-10">
+              <input type="text" placeholder="Address Line 2" class="form-control" name="newSession.address_2" [(ngModel)]='newSession.address_2'>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">City</label>
+            <div class="col-sm-10">
+              <input type="text" name="newSession.city" [(ngModel)]='newSession.city' placeholder="City" class="form-control">
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">State</label>
+            <div class="col-sm-4">
+              <input type="text" name="newSession.state" [(ngModel)]='newSession.state' placeholder="State" class="form-control">
+            </div>
+
+            <label class="col-sm-2 control-label" for="textinput">Postcode</label>
+            <div class="col-sm-4">
+              <input type="text" placeholder="Post Code" name="newSession.zip_code" [(ngModel)]='newSession.zip_code' class="form-control">
+            </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Country</label>
+            <div class="col-sm-10">
+              <input type="text" placeholder="Country" name="newSession.country" [(ngModel)]='newSession.country' class="form-control">
+            </div>
+          </div>
+
+    <h4>What do you want to study and when? </h4>
+          <div class="form-group">
+                  <label for="lastName" class="col-sm-2 control-label">Sujects of study</label>
+                  <div class="col-sm-9">
+                      <input type="text" id="sujects_study" name="newSession.sujects_study" [(ngModel)]='newSession.sujects_study' placeholder="Example: Maths / Gauss integrals" class="form-control" autofocus>
+                  </div>
+              </div>
+          <div class="form-group">
+                  <label for="lastName" class="col-sm-2 control-label">Level reference</label>
+                  <div class="col-sm-9">
+                      <input type="text" id="lastName" name="newSession.level" [(ngModel)]='newSession.level' placeholder="Example: 1st year College" class="form-control" autofocus>
+                  </div>
+          </div>
+          <div class="form-group">
+            <label for="weight" class="col-sm-2 control-label">Number of persons</label>
+            <div class="col-sm-9">
+            <input type="number" id="weight" name="newSession.num_persons" [(ngModel)]='newSession.num_persons' placeholder="Number of persons" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="birthDate" class="col-sm-2 control-label">Date</label>
+              <div class="col-sm-9">
+                  <input type="date" name="newSession.date_study" [(ngModel)]='newSession.date_study' id="birthDate" class="form-control">
+              </div>
+          </div>
+            <div class="form-group">
+                  <label for="weight" class="col-sm-2 control-label">Time for Starting</label>
+              <div class="col-sm-9">
+                  <input type="time" id="weight" name="newSession.time_starting" [(ngModel)]='newSession.time_starting' placeholder="Your grade" class="form-control">
+              </div>
+          </div>
+        <button type="submit" class="btn btn-info btn-md" id="b_submit">Submit</button>
+        <button class="btn btn-info btn-md" [routerLink]="['/home']" id="b_cancel">Cancel</button>
+    </form> <!-- /form -->
+</div>

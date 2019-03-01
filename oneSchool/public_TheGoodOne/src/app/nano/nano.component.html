@@ -1,0 +1,63 @@
+
+<div id="flipkart-navbar" class="row">
+  <h1 >OneSchool</h1>
+  <div class="col-sm-3">
+      <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()">☰ OneSchool</span></h2>
+      <h2 style="margin:0px;"><span class="largenav">Welcome {{sessionVariable.username}}</span></h2>
+  </div>
+  <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
+    <input type="text" class="flipkart-navbar-input col-xs-9" placeholder="Search sessions by school, location, or grade" name="Research">
+    <button class="flipkart-navbar-button col-xs-1">
+        <svg width="15px" height="15px">
+            <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
+        </svg>
+    </button> 
+  </div>
+  <div class="col-1">
+      <input type="submit" class="btn btn-info btn-md" id="logout" [routerLink]="['/login']" value="Logout" >            
+</div>
+</div>
+<div class='vertical'>
+  <div class="menu_vert">
+      <div class="sidebar-nav">
+          <div class="well" style="width:100%; padding: 8px 0;">
+          <ul class="nav nav-list"> 
+            <li class="nav-header">Main</li>        
+            <li class="active"><a [routerLink]="['/session']"><i class="icon-home">Create a study session</i> </a></li>
+            <li><a [routerLink]="['/mySessions']"><i class="icon-edit">My sessions</i> </a></li>
+            <li><a type="button" (click)='showResearch()'><i class="icon-user"> Research</i></a></li>
+            <li><a [routerLink]="['/requestsForSession']"><i class="icon-history">Manage Requests</i></a></li>
+            <li><a [routerLink]="['/settings']"><i class="icon-picture">Settings</i> </a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+<app-research *ngIf = "selectedResearch == true"></app-research> <!-- use the selector of the task component to nest it within the root component -->
+</div>
+<div class='content' >
+  <div class="vert" *ngFor='let req of requests'>
+      <h4>Request of <span><i>{{req.first_name}} {{req.last_name}}.</i></span>    Username: <span><i>{{req.username}}.</i></span>   School name: <span><i>{{req.school}}.</i></span></h4>
+      <table class="table">
+          <!-- <tr>
+              <th scope="col">Status</th>
+              <td>Open: 1 person left</td>
+          </tr> -->
+          <tr>
+              <th scope="col">Session's number and location:</th>
+              <td>Session number: <span><i>{{req.Sessions_id}}</i></span> at <span><i>{{req.city}}, {{req.state}}</i></span></td>
+          </tr>
+          <tr>
+            <th scope="col">Suject of study and When?</th>
+            <td>Schedule for studying <span><i>{{req.sujects_study}}</i></span> on <span><i>{{req.date_study}}</i></span> at <span><i>{{req.time_starting}}</i></span></td>
+          </tr>
+      </table>
+
+      <div class="form-group">
+          <button *ngIf = "req.user_status == true" class="btn btn-info btn-md" (click)='leaveSessionFromService(req.Users_id, req.Sessions_id)' id="b_submit">Remove this user from session</button>
+          <button *ngIf = "req.user_status == false" class="btn btn-info btn-md" (click)='leaveSessionFromService(req.Users_id, req.Sessions_id)' id="b_submit">Cancel request to Join Session</button>
+          <button *ngIf = "req.user_status == false" class="btn btn-info btn-md" (click)='acceptRequestFromService(req.Users_id, req.Sessions_id)' id="b_submit">Accept request to Join Session</button>
+      </div>
+  </div>
+
+</div>
+
